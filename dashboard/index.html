@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="rings" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+    <div>
+      <h1>TOKEN RADAR</h1>
+      <p class="tag">Protocols that record no token yet, ranked by what a launch could be worth.</p>
+    </div>
+  </div>
+  <div class="chips" id="statChips"></div>
+</header>
+
+<section class="panel model" id="modelPanel">
+  <h2>The model</h2>
+  <p class="formula">Implied value = TVL &times; category multiple &times; momentum &times; maturity &times; chain breadth, rounded to the nearest $1,000.</p>
+  <ul class="points" id="modelPoints"></ul>
+  <p class="hygiene" id="modelHygiene"></p>
+  <table class="multiples">
+    <thead><tr><th>Category</th><th>Multiple</th><th>Tokenised peers</th><th>Basis</th></tr></thead>
+    <tbody id="multipleRows"></tbody>
+  </table>
+</section>
+
+<nav class="views" aria-label="Views">
+  <button type="button" id="viewBoard" class="viewbtn on">Pre-token board</button>
+  <button type="button" id="viewLive" class="viewbtn">Live tokens</button>
+</nav>
+
+<main id="boardView">
+  <section class="controls" aria-label="Board controls">
+    <label class="grow">Search
+      <input type="search" id="q" placeholder="Protocol name or slug">
+    </label>
+    <label>Chain
+      <select id="chainSel"><option value="">All chains</option></select>
+    </label>
+    <label>Category
+      <select id="catSel"><option value="">All categories</option></select>
+    </label>
+    <label>Min implied value
+      <select id="minSel">
+        <option value="0">Any</option>
+        <option value="1000000">$1M</option>
+        <option value="10000000">$10M</option>
+        <option value="50000000">$50M</option>
+        <option value="100000000">$100M</option>
+        <option value="500000000">$500M</option>
+      </select>
+    </label>
+    <label>Sort by
+      <select id="sortSel">
+        <option value="implied">Implied value</option>
+        <option value="tvl">TVL</option>
+        <option value="growth">7d growth</option>
+        <option value="age">Tokenless age</option>
+      </select>
+    </label>
+    <label class="check">
+      <input type="checkbox" id="watchOnly"> Watchlist only
+    </label>
+    <span class="count" id="rowCount"></span>
+  </section>
+  <div class="tablewrap">
+    <table class="board">
+      <thead><tr>
+        <th class="num">#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+        <th class="num">TVL</th><th class="num">7d</th><th class="num">No token for</th>
+        <th class="num">Implied value</th><th class="num">Value / TVL</th>
+      </tr></thead>
+      <tbody id="boardRows"></tbody>
+    </table>
+  </div>
+</main>
+
+<main id="liveView" hidden>
+  <p class="liveNote">Already trading. These protocols have a token, so the model does not rank them; they are
+  shown at the market's own values for comparison — and their market cap / TVL ratios are the peer
+  evidence the board's category multiples are derived from.</p>
+  <div class="tablewrap">
+    <table class="board">
+      <thead><tr>
+        <th class="num">#</th><th>Protocol</th><th>Symbol</th><th>Category</th>
+        <th class="num">TVL</th><th class="num">Market cap</th><th class="num">7d</th>
+      </tr></thead>
+      <tbody id="liveRows"></tbody>
+    </table>
+  </div>
+</main>
+
+<main id="detailView" hidden></main>
+
+<footer>
+  <p id="sourceLine"></p>
+  <p>Implied values are this dashboard's own model output from the snapshot's figures, not a prediction
+  that any protocol will issue a token. A protocol listed here records no token in the snapshot; that is
+  a statement about the record, not proof none exists.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
